@@ -1,12 +1,26 @@
 <?php
 
+include_once('Product.php');
+
 class BlackCat
 {
+    protected $companyName = "黑貓";
+    protected $charge = 0;
     protected $shipProduct;
+
+    public function __construct(Product $product)
+    {
+        $this->shipProduct = $product;
+    }
 
     public function calculate()
     {
-        throw new Exception('NotImplementedException.');
+        $weight = $this->shipProduct->weight;
+        if ($weight > 20) {
+            $this->charge = 500;
+        } else {
+            $this->charge = 100 + $weight * 10;
+        }
     }
 
     public function set($product)
@@ -21,11 +35,11 @@ class BlackCat
 
     public function getCompanyName()
     {
-        throw new Exception('NotImplementedException.');
+        return $this->companyName;
     }
 
     public function getCharge()
     {
-        throw new Exception('NotImplementedException.');
+        return $this->charge;
     }
 }

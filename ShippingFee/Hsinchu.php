@@ -1,12 +1,31 @@
 <?php
 
+include_once('Product.php');
+
 class Hsinchu
 {
+    protected $companyName = "新竹貨運";
+    protected $charge = 0;
     protected $shipProduct;
+
+    public function __construct(Product $product)
+    {
+        $this->shipProduct = $product;
+    }
 
     public function calculate()
     {
-        throw new Exception('NotImplementedException.');
+        $length = $this->shipProduct->length;
+        $width = $this->shipProduct->width;
+        $height = $this->shipProduct->height;
+        $size = $length * $width * $height;
+
+        //長 x 寬 x 高（公分）x 0.0000353
+        if ($length > 100 || $width > 100 || $height > 100) {
+            $this->charge = $size * 0.0000353 * 1100 + 500;
+        } else {
+            $this->charge = $size * 0.0000353 * 1200;
+        }
     }
 
     public function set($product)
@@ -21,11 +40,11 @@ class Hsinchu
 
     public function getCompanyName()
     {
-        throw new Exception('NotImplementedException.');
+        return $this->companyName;
     }
 
     public function getCharge()
     {
-        throw new Exception('NotImplementedException.');
+        return $this->charge;
     }
 }

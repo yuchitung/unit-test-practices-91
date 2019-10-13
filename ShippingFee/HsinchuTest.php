@@ -6,9 +6,6 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * Class HsinchuTest
- * 重構第六式：確定對方給的，是我要的
- * 建立單元測試，得到紅燈
- * ref: https://ithelp.ithome.com.tw/articles/10106386
  */
 class HsinchuTest extends TestCase
 {
