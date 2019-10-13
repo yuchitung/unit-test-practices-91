@@ -1,8 +1,9 @@
 <?php
 
+include_once('LogisticsInterface.php');
 include_once('Product.php');
 
-class Hsinchu
+class Hsinchu implements LogisticsInterface
 {
     protected $companyName = "新竹貨運";
     protected $charge = 0;

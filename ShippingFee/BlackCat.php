@@ -1,8 +1,9 @@
 <?php
 
+include_once('LogisticsInterface.php');
 include_once('Product.php');
 
-class BlackCat
+class BlackCat implements LogisticsInterface
 {
     protected $companyName = "黑貓";
     protected $charge = 0;

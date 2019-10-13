@@ -1,8 +1,9 @@
 <?php
 
+include_once('LogisticsInterface.php');
 include_once('Product.php');
 
-class PostOffice
+class PostOffice implements LogisticsInterface
 {
     protected $companyName = "郵局";
     protected $charge = 0;
