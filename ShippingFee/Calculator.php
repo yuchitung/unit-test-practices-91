@@ -3,7 +3,8 @@
 /**
  * Class Calculator
  * 計算運費
- * ref: https://ithelp.ithome.com.tw/articles/10104643
+ * 重構第二式：說人話
+ * ref: https://ithelp.ithome.com.tw/articles/10105320
  */
 class  Calculator
 {
@@ -26,6 +27,7 @@ class  Calculator
 
     public function calculate()
     {
+        //選黑貓，計算出運費，呈現物流商名稱與運費
         if ($this->dropCompanyId === 1) {
             $this->companyName = "黑貓";
             $weight = $this->weight;
@@ -35,6 +37,8 @@ class  Calculator
                 $fee = 100 + $weight * 10;
                 $this->charge = $fee;
             }
+
+            //選新竹貨運，計算出運費，呈現物流商名稱與運費
         } else if ($this->dropCompanyId === 2) {
             $this->companyName = "新竹貨運";
             $length = $this->length;
@@ -48,6 +52,8 @@ class  Calculator
             } else {
                 $this->charge = $size * 0.0000353 * 1200;
             }
+
+            //選郵局，計算出運費，呈現物流商名稱與運費
         } else if ($this->dropCompanyId === 3) {
             $this->companyName = "郵局";
             $weight = $this->weight;
