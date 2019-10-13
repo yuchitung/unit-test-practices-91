@@ -5,12 +5,13 @@ include_once('PostOffice.php');
 
 /**
  * Class Calculator
- * 重構第四式：職責分離，誰，做什麼事
- * ref: https://ithelp.ithome.com.tw/articles/10105596
+ * 重構第五式：給你錢，趕快做
+ * 不是自己職責以外的部分，就只出一張嘴，叫其他物件做事
+ * ref: https://ithelp.ithome.com.tw/articles/10106006
  */
 class Calculator
 {
-    protected $isValid = true;
+    protected $product;
     protected $dropCompanyId = 0;
     protected $companyName = '';
     protected $charge = 0;
@@ -19,21 +20,20 @@ class Calculator
     protected $height = 0;
     protected $weight = 0;
 
-    public function __construct(int $companyId, float $length, float $width, float $height, float $weight)
+    public function __construct(int $companyId, Product $product)
     {
         $this->dropCompanyId = $companyId;
-        $this->length = $length;
-        $this->width = $width;
-        $this->height = $height;
-        $this->weight = $weight;
+        $this->product = $product;
     }
 
     protected function calculate()
     {
         //選黑貓，計算出運費，呈現物流商名稱與運費
         if ($this->dropCompanyId === 1) {
-            $blackCat = new BlackCat();
+            $blackCat = new BlackCat($this->product);
             $blackCat->calculate();
+            $this->companyName = $blackCat->getCompanyName();
+            $this->charge = $blackCat->getCharge();
 
             /*
             $this->companyName = "黑貓";
@@ -48,8 +48,10 @@ class Calculator
 
             //選新竹貨運，計算出運費，呈現物流商名稱與運費
         } else if ($this->dropCompanyId === 2) {
-            $hsinchu = new Hsinchu();
+            $hsinchu = new Hsinchu($this->product);
             $hsinchu->calculate();
+            $this->companyName = $hsinchu->getCompanyName();
+            $this->charge = $hsinchu->getCharge();
 
             /*
             $this->companyName = "新竹貨運";
@@ -68,8 +70,10 @@ class Calculator
 
             //選郵局，計算出運費，呈現物流商名稱與運費
         } else if ($this->dropCompanyId === 3) {
-            $postOffice = new PostOffice();
-            $postOffice->calculate();
+            $postOffice = new PostOffice($this->product);
+            $postOffice->Calculate();
+            $this->companyName = $postOffice->getCompanyName();
+            $this->charge = $postOffice->getCharge();
 
             /*
             $this->companyName = "郵局";

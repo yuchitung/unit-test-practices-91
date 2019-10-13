@@ -1,5 +1,6 @@
 <?php
 include_once('Calculator.php');
+include_once('Product.php');
 
 if (isset($_POST['submit'])) {
     $companyId = (int)$_POST['shippingCompanyId'];
@@ -8,7 +9,8 @@ if (isset($_POST['submit'])) {
     $height = (float)$_POST['height'];
     $weight = (float)$_POST['weight'];
 
-    $calculator = new Calculator($companyId, $length, $width, $height, $weight);
+    $product = new Product($length, $weight, $height, $weight);
+    $calculator = new Calculator($companyId, $product);
     $calculator->calculate();
     $name = $calculator->getCompanyName();
     $fee = $calculator->getCharge();
